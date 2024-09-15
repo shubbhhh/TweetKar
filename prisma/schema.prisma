@@ -19,14 +19,11 @@ model User {
   name          String?
   details       String?
   profilePic    String?
-  googleId      String?      @unique
-  verifiedEmail Boolean      @default(false)
-  provider      String       @default("local")
   password      String?
   creationDate  DateTime     @default(now())
   posts         Post[]
   bookmarks     Bookmark[]
-  // Likes         Like[]
+  Likes         Like[]
   comments      Comment[]
   subscribers   Subscriber[] @relation("UserSubscribers")
   subscribedTo  Subscriber[] @relation("UserSubscribedTo")
@@ -41,7 +38,7 @@ model Post {
   author        User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId      String
   bookmarks     Bookmark[]
-  // Likes         Like[]
+  Likes         Like[]
   comments      Comment[]
   tagsOnPost    TagsOnPost[]
 }
@@ -54,29 +51,14 @@ model Bookmark {
   postId String
 }
 
-// model Like {
-//   id        String   @id @default(uuid())
-//   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   userId    String
-//   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-//   postId    String
-//   comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
-//   commentId String?
-// }
-
-model Comment {
-  id        String    @id @default(uuid())
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Like {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
-  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String
-  message   String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  parent    Comment?  @relation("ParentChild", fields: [parentId], references: [id], onDelete: Cascade)
-  children  Comment[] @relation("ParentChild")
-  parentId  String?
-  // Likes     Like[]
+  comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  commentId String?
 }
 
 model Tag {
@@ -102,4 +84,19 @@ model Subscriber {
 
   user       User @relation("UserSubscribers", fields: [userId], references: [id])
   subscriber User @relation("UserSubscribedTo", fields: [subscriberId], references: [id])
+}
+
+model Comment {
+  id        String    @id @default(uuid())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
+  message   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  parent    Comment?  @relation("ParentChild", fields: [parentId], references: [id], onDelete: Cascade)
+  children  Comment[] @relation("ParentChild")
+  parentId  String?
+  Likes     Like[]
 }
