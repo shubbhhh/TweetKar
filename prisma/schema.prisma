@@ -34,13 +34,11 @@ model Post {
   title         String
   content       String
   publishedDate DateTime     @default(now())
-  published     Boolean      @default(false)
   author        User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId      String
   bookmarks     Bookmark[]
   Likes         Like[]
   comments      Comment[]
-  tagsOnPost    TagsOnPost[]
 }
 
 model Bookmark {
@@ -59,21 +57,6 @@ model Like {
   postId    String
   comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
   commentId String?
-}
-
-model Tag {
-  id           String       @id @default(uuid())
-  tagName      String
-  creationDate DateTime     @default(now())
-  tagsOnPost   TagsOnPost[]
-}
-
-model TagsOnPost {
-  id     String @id @default(uuid())
-  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
-  tagId  String
-  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId String
 }
 
 model Subscriber {
