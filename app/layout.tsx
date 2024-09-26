@@ -4,6 +4,8 @@ import "./globals.css";
 import { Center } from "@/components/Center";
 import Navbar from "@/components/Sidebar";
 import Sidebar from "@/components/Sidebar";
+import FollowBar from "@/components/FollowBar";
+import Modal from "@/components/Modal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,12 +23,14 @@ export default function RootLayout({
     <html lang="en">
         <body className={inter.className}>
           <div className="h-screen">
+            <Modal />
             <div className="container h-full mx-auto xl:px-30 max-w-6xl">
               <div className="grid grid-cols-4 h-full">
                 <Sidebar />
-                <div className="col-span-3 lg:col-span-2 border-x-[1px] border-neutral-800">
+                <div className="col-span-3 lg:col-span-2 border-x-[1px] border-neutral-200">
                   {children}
                 </div>
+                <FollowBar />
               </div>
             </div>
           </div>
