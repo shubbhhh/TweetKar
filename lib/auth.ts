@@ -6,6 +6,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import bcrypt from 'bcrypt'
 
 export const AuthProvider = {
+    adapter: PrismaAdapter(prisma),
     providers: [
         CredentialsProvider({
             name: "signin", 
