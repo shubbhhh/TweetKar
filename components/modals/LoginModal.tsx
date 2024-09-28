@@ -6,6 +6,7 @@ import Input from "../Input";
 import Modal from "../Modal";
 import useSignupModal from "@/hooks/useSignupModal";
 import { signIn } from "next-auth/react";
+import bcrypt from "bcrypt";
 
 
 export default function LoginModal() {
@@ -27,13 +28,21 @@ export default function LoginModal() {
     const onSubmit = useCallback(async () => {
         try {
             setIsLoading(true);
-
-            await signIn("credentials", {
+            
+            console.log(email, password);
+            
+            const res = await signIn("credentials", {
                 email,
-                password
+                password,
+                redirect: false
             })
+            
+            if (res?.error) {   
+                console.log(res.error);
+            } else {
+                loginModal.onClose();   
+            }
 
-            loginModal.onClose()
         } catch(error) {
             console.log(error)
         } finally {
@@ -61,12 +70,13 @@ export default function LoginModal() {
 
     const footerContent = (
         <div className="flex gap-1 items-center">
-            <p>Don't have an account?</p>
-            <p
-                onClick={toggle}
-                className="hover:underline"
-            >
-                Sign-up
+            <p>Don't have an account?
+                <span
+                    onClick={toggle}
+                    className="hover:underline"
+                >
+                    Sign-up
+                </span>
             </p>
         </div>
     )
@@ -79,7 +89,7 @@ export default function LoginModal() {
                 title="Login"
                 actionLabel="Sign in"
                 onClose={loginModal.onClose}
-                onSubmit={onSubmit}
+                onSubmit={onSubmit} 
                 body={bodyContent}
                 footer={footerContent}
             />

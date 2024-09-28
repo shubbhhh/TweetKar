@@ -1,8 +1,8 @@
-import { AuthProvider } from "@/lib/auth";
+import { AuthOption } from "@/lib/auth";
 import NextAuth from "next-auth/next";
 
 const authHanlder = NextAuth({
-    ...AuthProvider,
+    ...AuthOption,
     session: {
         strategy: "jwt"
     }

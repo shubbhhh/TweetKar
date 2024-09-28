@@ -1,10 +1,16 @@
 "use client"
 
+import useCurrentUser from "@/hooks/useCurrentUser";
 import { LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
 
 
 export default function LogoutButton() {
+    const { data: user } = useCurrentUser();
+
+    if (!user) {
+        return <></>
+    }
 
     return (
         <div

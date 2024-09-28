@@ -1,11 +1,14 @@
-import { getServerSession } from "next-auth";
+'use client'
+
 import { House, Bell, User, LogOut } from "lucide-react";
 import SidebarLogo from "./SidebarLogo";
-import { Button } from "./ui/button";
 import SidebarItem from "./SidebarItem";
+import { signOut } from "next-auth/react";
+import LogoutButton from "./LogoutButton";
+import SidebarTweetButton from "./SidebarTweetButton";
 
 
-export default async function Sidebar() {
+export default function Sidebar() {
     const items = [
         {
             label: "Home",
@@ -15,12 +18,14 @@ export default async function Sidebar() {
         {
             label: "Notification",
             href: "/notifications",
-            icon: Bell
+            icon: Bell,
+            auth: true
         },
         {
             label: "Profile",
             href: "/user",
-            icon: User
+            icon: User,
+            auth: true
         }
     ]
 
@@ -41,13 +46,8 @@ export default async function Sidebar() {
                             />
                         )
                     )}
-                    <div className="relative hidden lg:flex gap-4 p-4 rounded-full hover:bg-slate-300 hover:bg-opacity-10 cursor-pointer items-center w-full">
-                        <LogOut />
-                        <p className="hidden lg:block text-xl">
-                            Logout
-                        </p>
-                    </div>
-                    
+                    <LogoutButton />
+                    <SidebarTweetButton />
                 </div>
             </div>
         </div>

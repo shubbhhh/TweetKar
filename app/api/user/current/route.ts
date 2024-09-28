@@ -1,20 +1,16 @@
 import serverAuth from "@/lib/serverAuth";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest } from "next";
+import { NextResponse } from "next/server";
 
-export default async function handler(
+export async function GET(
     req: NextApiRequest,
-    res: NextApiResponse
 ) {
-    if (req.method !== "GET") {
-        return res.status(405).end()
-    }
-
     try {
         const { currentUser } = await serverAuth(req);
     
-        return res.status(200).json(currentUser)
+        return NextResponse.json(currentUser)
     } catch(error) {
         console.log(error)
-        return res.status(404).end();
+        return NextResponse.json({ error: 'User not signed-in' }, { status: 404 });
     }
 }
