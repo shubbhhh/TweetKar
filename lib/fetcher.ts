@@ -1,6 +1,10 @@
 import axios from "axios";
 
 export default async function(url: string) {
-    const res = await axios.get(url)
-    return res.data
+    try {
+        const { data } = await axios.get(url);
+        return data; 
+    } catch (error) {
+        throw new Error("An error occurred while fetching data.");
+    }
 }
