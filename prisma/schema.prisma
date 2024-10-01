@@ -19,7 +19,7 @@ model User {
   name          String?
   details       String?
   profilePic    String?
-  password      String?
+  password      String
   creationDate  DateTime     @default(now())
   posts         Post[]
   bookmarks     Bookmark[]
@@ -27,6 +27,7 @@ model User {
   comments      Comment[]
   subscribers   Subscriber[] @relation("UserSubscribers")
   subscribedTo  Subscriber[] @relation("UserSubscribedTo")
+  notifications Notifications[]
 }
 
 model Post {
@@ -82,4 +83,14 @@ model Comment {
   children  Comment[] @relation("ParentChild")
   parentId  String?
   Likes     Like[]
+}
+
+model Notifications {
+  id        String @id @default(uuid())
+  body      String
+  
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+
+  createdAt DateTime @default(now())
 }

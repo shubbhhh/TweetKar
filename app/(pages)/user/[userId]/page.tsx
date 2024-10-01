@@ -1,18 +1,22 @@
 "use client"
+import Avatar from "@/components/Avatar";
 import Header from "@/components/Header"
+import UserHero from "@/components/UserHero";
 import { useUser } from "@/hooks/useUser";
-import axios from "axios";
 
 export default function UserProfile({ params }: { params: { userId: string} }) {
     const { userId } = params;
-    // const user = await axios.get(`http://localhost:3000/api/user/${userId}`)
 
     const { data: fetchedUser, isLoading } = useUser(userId);
     console.log(fetchedUser)
 
     return (
-        <div>
-            <Header showBackArrow label={`${fetchedUser?.name}`} /> 
+        <>
+        <Header showBackArrow label={`${fetchedUser?.name}`} />
+        <UserHero />
+        <div className="p-4 w-fit h-fit">
+            <Avatar isLarge hasBorder name={fetchedUser?.name || "Failed to fetch"} />
         </div>
+        </>
     )
 }
