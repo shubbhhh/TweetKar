@@ -12,8 +12,7 @@ export function useUser(userId: string) {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get(`api/user/${userId}`);
-                console.log(response)
+                const response = await axios.get(`http://localhost:3000/api/user/${userId}`);
                 setData(response.data);
             } catch (error: any) {
                 setError(error);
@@ -23,7 +22,6 @@ export function useUser(userId: string) {
         };
 
         fetchData();
-        console.log(data, error)
     }, [userId]);
 
     return { data, error, isLoading };
