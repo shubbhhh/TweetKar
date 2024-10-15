@@ -3,17 +3,18 @@
 import { House, Bell, User, LogOut } from "lucide-react";
 import SidebarLogo from "./SidebarLogo";
 import SidebarItem from "./SidebarItem";
-import { signOut } from "next-auth/react";
 import LogoutButton from "./LogoutButton";
 import SidebarTweetButton from "./SidebarTweetButton";
+import useCurrentUser from "@/hooks/useCurrentUser";
 
 
 export default function Sidebar() {
+    const { data: user } = useCurrentUser();
     const items = [
         {
             label: "Home",
             href: "/",
-            icon: House
+            icon: House,
         },
         {
             label: "Notification",
@@ -23,7 +24,7 @@ export default function Sidebar() {
         },
         {
             label: "Profile",
-            href: "/user",
+            href: "/profile",
             icon: User,
             auth: true
         }
@@ -43,10 +44,13 @@ export default function Sidebar() {
                                 label={item.label}
                                 href={item.href} 
                                 icon={item.icon}
+                                auth={item.auth}
                             />
                         )
                     )}
-                    <LogoutButton />
+                    {user &&
+                        <LogoutButton />
+                    }
                     <SidebarTweetButton />
                 </div>
             </div>

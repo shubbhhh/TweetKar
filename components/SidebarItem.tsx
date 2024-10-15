@@ -17,12 +17,11 @@ export default function SidebarItem({ label, href, icon: Icon, onclick, auth }: 
     const loginModal = useLoginModal();
     const router = useRouter();
     const handleClick = useCallback(() => {
+        console.log(user)
         if (onclick) {
             return onclick;
         }
-
-        console.log(!auth)
-
+        
         if (auth && !user) {
             loginModal.onOpen();
 

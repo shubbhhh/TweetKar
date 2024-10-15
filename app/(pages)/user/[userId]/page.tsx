@@ -1,8 +1,9 @@
 "use client"
-import Avatar from "@/components/Avatar";
 import Header from "@/components/Header"
+import UserBio from "@/components/UserBio";
 import UserHero from "@/components/UserHero";
 import { useUser } from "@/hooks/useUser";
+import { Loader } from "lucide-react";
 
 export default function UserProfile({ params }: { params: { userId: string} }) {
     const { userId } = params;
@@ -10,13 +11,15 @@ export default function UserProfile({ params }: { params: { userId: string} }) {
     const { data: fetchedUser, isLoading } = useUser(userId);
     console.log(fetchedUser)
 
+    if(isLoading) {
+        return <Loader />
+    }
+
     return (
-        <>
-        <Header showBackArrow label={`${fetchedUser?.name}`} />
-        <UserHero />
-        <div className="p-4 w-fit h-fit">
-            <Avatar isLarge hasBorder name={fetchedUser?.name || "Failed to fetch"} />
+        <div>
+            <Header showBackArrow label={`${fetchedUser?.name}`} />
+            <UserHero user={fetchedUser}/>
+            <UserBio user={fetchedUser} />
         </div>
-        </>
     )
 }

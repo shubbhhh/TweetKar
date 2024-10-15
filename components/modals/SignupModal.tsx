@@ -43,8 +43,9 @@ export default function SignupModal() {
             toast.success("Account created!")
             
             signIn("credentials", {
+                redirect: false,
                 email,
-                password
+                password,
             });
 
             signupModal.onClose()

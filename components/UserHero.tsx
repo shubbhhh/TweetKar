@@ -1,8 +1,13 @@
+import Avatar from "./Avatar";
 
-export default function UserHero() {
+export default function UserHero({ user } : { user?: User }) {
     return (
-        <div className="bg-slate-200 h-40 p-4">
-            
+        <div className="">
+            <div className="bg-slate-200 h-44 relative">
+                <div className="absolute -bottom-16 left-4">
+                    <Avatar isLarge hasBorder name={user?.name || ""} email={user?.email || ""} />
+                </div>
+            </div>
         </div>
     )
 }
