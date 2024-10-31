@@ -10,24 +10,26 @@
 
 
 .editor-root {
-  background-color: rgb(227, 219, 219);
+  background-color: rgb(255, 255, 255);
 }
 
 .ql-toolbar {
   border-radius: 10px;
+  border: none !important;
+  
 }
 
 .ql-editor {
-  height: 100vh !important;
+  height: auto;
 }
 
 .ql-container {
-  background-color: #e6cece;
-  height: 100vh !important;
+  background-color: #ffffff;
+  border: none !important;
 }
 
 .custom-quill .ql-editor.ql-blank::before {
-  color: gray; /* Change this to your desired placeholder color */
+  color: rgb(170, 168, 168); /* Change this to your desired placeholder color */
   opacity: 1; /* Ensures the placeholder text is visible */
 }
 

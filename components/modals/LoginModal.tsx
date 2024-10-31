@@ -1,12 +1,14 @@
 "use client"
 
-import useLoginModal from "@/hooks/useLoginModal";
 import { useCallback, useState } from "react";
+
 import Input from "../Input";
 import Modal from "../Modal";
+
+import useLoginModal from "@/hooks/useLoginModal";
 import useSignupModal from "@/hooks/useSignupModal";
+
 import { signIn } from "next-auth/react";
-import bcrypt from "bcrypt";
 
 
 export default function LoginModal() {

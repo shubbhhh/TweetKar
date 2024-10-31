@@ -1,12 +1,16 @@
 "use client"
 
 import { useCallback, useState } from "react";
+import { signIn } from "next-auth/react";
+
+import axios from "axios";
+
+import { toast } from "react-hot-toast";
+
 import Input from "../Input";
 import Modal from "../Modal";
+
 import useSignupModal from "@/hooks/useSignupModal";
-import { signIn } from "next-auth/react";
-import axios from "axios";
-import { toast } from "react-hot-toast";
 import useLoginModal from "@/hooks/useLoginModal";
 
 export default function SignupModal() {

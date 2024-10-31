@@ -7,6 +7,7 @@ import LoginModal from "@/components/modals/LoginModal";
 import SignupModal from "@/components/modals/SignupModal";
 import { Toaster } from "react-hot-toast";
 import Provider from "./provider";
+import TweetModal from "@/components/modals/TweetModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,6 +38,7 @@ export default function RootLayout({
             </div>
             <LoginModal />
             <SignupModal />
+            <TweetModal />
           </div>
         </body>
       </Provider>
