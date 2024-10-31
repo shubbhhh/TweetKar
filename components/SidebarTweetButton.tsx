@@ -1,16 +1,15 @@
 "use client"
-import useLoginModal from "@/hooks/useLoginModal";
+import useTweetModal from "@/hooks/useTweetModal";
 import { Feather } from "lucide-react";
-import { useRouter } from "next/navigation"
 import { useCallback } from "react";
 
 export default function SidebarTweetButton() {
-    const router = useRouter();
-    const loginModal = useLoginModal();
+    const tweetModal = useTweetModal();
 
     const onClick = useCallback(() => {
-        loginModal.onOpen()
-    }, [loginModal])
+        tweetModal.onOpen()
+        console.log(tweetModal.isOpen)
+    }, [tweetModal])
 
     return (
         <div onClick={onClick}>

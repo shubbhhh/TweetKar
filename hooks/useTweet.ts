@@ -1,21 +1,19 @@
-import prisma from "@/db"
-
-interface BlogContent {
-    title: string
-    content: string
-    authorId: string
-}
+import fetcher from "@/lib/fetcher"
+import useSWR from "swr"
 
 
-function useBlog() {
+export function useTweet(postId: string): { 
+    data: Post, 
+    error: Error, 
+    isLoading: boolean,
+} {
+    const { data, error, isLoading } = useSWR(`/api/tweet/${postId}`, fetcher);
 
-    async function createBlog(BlogContent: BlogContent) {
-        await prisma.post.create({
-            data: {
-                title: BlogContent.title,
-                content: BlogContent.content,
-                authorId: BlogContent.authorId
-            },
-        });
+    console.log(data)
+
+    return {
+        data,
+        error,
+        isLoading,
     }
 }
