@@ -1,11 +1,12 @@
 'use client'
 
-import { House, Bell, User, LogOut } from "lucide-react";
+import { House, Bell, User, LogOut, Bookmark, CircleEllipsis } from "lucide-react";
 import SidebarLogo from "./SidebarLogo";
 import SidebarItem from "./SidebarItem";
 import LogoutButton from "./LogoutButton";
 import SidebarTweetButton from "./SidebarTweetButton";
 import useCurrentUser from "@/hooks/useCurrentUser";
+import SidebarSigninButton from "./sidebarSignInButton";
 
 
 export default function Sidebar() {
@@ -26,6 +27,18 @@ export default function Sidebar() {
             label: "Profile",
             href: "/profile",
             icon: User,
+            auth: true
+        },
+        {
+            label: "Bookmark",
+            href: "/",
+            icon: Bookmark,
+            auth: true
+        },
+        {
+            label: "more",
+            href: "/",
+            icon: CircleEllipsis,
             auth: true
         }
     ]
@@ -51,7 +64,12 @@ export default function Sidebar() {
                     {user &&
                         <LogoutButton />
                     }
-                    <SidebarTweetButton />
+                    {user && 
+                        <SidebarTweetButton />
+                    }
+                    {!user && 
+                        <SidebarSigninButton />
+                    }
                 </div>
             </div>
         </div>

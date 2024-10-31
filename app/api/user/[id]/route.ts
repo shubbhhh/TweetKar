@@ -1,5 +1,4 @@
 import prisma from "@/db";
-import { error } from "console";
 import { NextRequest, NextResponse } from "next/server";
 
 
@@ -10,6 +9,17 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
         const user = await prisma.user.findUnique({
             where: {
                 id: userId
+            },
+            select: {
+                id: true,
+                name: true,
+                details: true,
+                profilePic: true,
+                username: true,
+                email: true,
+                creationDate: true,
+                subscribers: true,
+                subscribedTo: true
             }
         })
 
