@@ -1,15 +1,31 @@
 import { useUser } from "@/hooks/useUser"
 import ActionButton from "./ActionButtons"
 import { Button } from "./ui/button"
+import useCurrentUser from "@/hooks/useCurrentUser"
 
 
 
 export default function UserBio({ user }: { user?: User }) {
+    const currUser = useCurrentUser();
+    // console.log(user?.creation)
 
     return (
         <div className="border-b pb-4">
             <div className="flex justify-end p-2">
-                <Button className="rounded-full px-6" variant={"outline"}>Follow</Button>
+                {(currUser?.data.id != user?.id ) ?
+                <Button 
+                    className="rounded-full px-6" 
+                    variant={"outline"}
+                >
+                    Follow
+                </Button> :
+                <Button 
+                    className="rounded-full px-6" 
+                    variant={"outline"}
+                >
+                    Edit
+                </Button>
+                } 
             </div>
             <div className="px-4 pt-4">
                 <p className="text-xl font-semibold">
