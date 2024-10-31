@@ -11,9 +11,10 @@ interface ModalProps {
     footer?: React.ReactElement,
     actionLabel?: string,
     disabled?: boolean,
+    hasFooter?: boolean
 }
 
-export default function Modal({ isOpen, onClose, onSubmit, title, body, footer, actionLabel, disabled }: ModalProps) {
+export default function Modal({ isOpen, onClose, onSubmit, title, body, footer, actionLabel, disabled, hasFooter }: ModalProps) {
     const handleClose = useCallback(() => {
         if (disabled) return;
 
@@ -49,9 +50,11 @@ export default function Modal({ isOpen, onClose, onSubmit, title, body, footer, 
                         {body}
                     </div>
                     {/* Fotter */}
+                    {/* {hasFooter &&
+                        } */}
                     <div className="flex flex-col gap-2 px-10 py-5 items-center md:text-sm">
                         <ActionButton 
-                            label="Login" 
+                            label={actionLabel || ""} 
                             onClick={handleSubmit} 
                             fullwidth 
                             secondary 
