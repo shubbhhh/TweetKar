@@ -10,11 +10,10 @@ export async function GET() {
             },
             select: {
                 id: true,
-                title: true,
                 content: true,
                 publishedDate: true,
                 author: true,
-                authorId: true,
+                // authorId: true,
                 bookmarks: true,
                 Likes: true,
                 comments: true

@@ -1,9 +1,11 @@
 import prisma from "@/db";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 
-export async function GET({ params }: { params: { postId: string } }) {
-    const postId = params.postId;
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+    const postId = params.id;
+    console.log("Post Id: ", postId)
+
     try {
         const postDetails = await prisma.post.findUnique({
             where: {
@@ -11,14 +13,23 @@ export async function GET({ params }: { params: { postId: string } }) {
             },
             select: {
                 id: true,
-                title: true,
                 content: true,
                 publishedDate: true,
                 author: true,
                 authorId: true,
                 bookmarks: true,
                 Likes: true,
-                comments: true
+                comments: {
+                    select: {
+                        id: true,
+                        message: true,
+                        postId: true,
+                        user: true,
+                        Likes: true,
+                        children: true,
+                        createdAt: true
+                    }
+                }
             }
         })
 
