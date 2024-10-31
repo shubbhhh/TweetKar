@@ -3,6 +3,18 @@ import { error } from "console"
 import CredentialsProvider from "next-auth/providers/credentials"
 
 import bcrypt from 'bcrypt'
+import { NextAuthOptions } from "next-auth"
+
+declare module "next-auth" {
+    interface Session {
+        user: {
+            id?: string | null;
+            name?: string | null;
+            email?: string | null;
+            image?: string | null;
+        }
+    }
+}
 
 export const AuthOption = {
     providers: [
@@ -25,7 +37,7 @@ export const AuthOption = {
                     },
                 })
 
-                if (!user) {
+                if (!user || !user.password) {
                     return error("Invalid cedentials!")
                 }
 
@@ -42,13 +54,40 @@ export const AuthOption = {
                     throw new Error("Invalid password")
                 }
                 
-                return user;
+                return { 
+                    id: user.id, 
+                    name: user.name, 
+                    email: user.email
+                };
             }
         })
     ],
+    callbacks: {
+        async jwt({ token, user }) {
+          if (user) {
+            token.id = user.id;
+            token.name = user.name;
+            token.email = user.email;
+          }
+          return token;
+        },
+        async session({ session, token }) {
+          if (token && session && session.user) {
+            session.user = {
+                ...session.user,
+                id: token.sub
+            }; 
+          }
+          return session;
+        },
+    },
+    session: {
+        strategy: "jwt"
+    },
     debug: process.env.NODE_ENV == "development",
     jwt: {
         secret: process.env.NEXTAUTH_JWT_SECRET
     },
     secret: process.env.NEXTAUTH_SECRET
-}
+
+} satisfies NextAuthOptions;

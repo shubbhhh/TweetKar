@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,50 +8,50 @@ datasource db {
 }
 
 model User {
-  id            String       @id @default(uuid())
-  email         String       @unique
+  id            String          @id @default(uuid())
+  email         String          @unique
+  username      String
+  password      String?
+  creationDate  DateTime        @default(now())
   name          String?
   details       String?
   profilePic    String?
-  password      String
-  creationDate  DateTime     @default(now())
-  posts         Post[]
   bookmarks     Bookmark[]
-  Likes         Like[]
   comments      Comment[]
-  subscribers   Subscriber[] @relation("UserSubscribers")
-  subscribedTo  Subscriber[] @relation("UserSubscribedTo")
+  Likes         Like[]
   notifications Notifications[]
+  posts         Post[]
+  subscribedTo  Subscriber[]    @relation("UserSubscribedTo")
+  subscribers   Subscriber[]    @relation("UserSubscribers")
 }
 
 model Post {
-  id            String       @id @default(uuid())
-  title         String
+  id            String     @id @default(uuid())
   content       String
-  publishedDate DateTime     @default(now())
-  author        User         @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  publishedDate DateTime   @default(now())
   authorId      String
   bookmarks     Bookmark[]
-  Likes         Like[]
   comments      Comment[]
+  Likes         Like[]
+  author        User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
 }
 
 model Bookmark {
   id     String @id @default(uuid())
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
-  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Like {
   id        String   @id @default(uuid())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId    String
-  comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  postId    String?
   commentId String?
+  comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  post      Post?     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Subscriber {
@@ -65,32 +59,29 @@ model Subscriber {
   userId       String
   subscriberId String
   creationDate DateTime @default(now())
-
-  user       User @relation("UserSubscribers", fields: [userId], references: [id])
-  subscriber User @relation("UserSubscribedTo", fields: [subscriberId], references: [id])
+  subscriber   User     @relation("UserSubscribedTo", fields: [subscriberId], references: [id])
+  user         User     @relation("UserSubscribers", fields: [userId], references: [id])
 }
 
 model Comment {
   id        String    @id @default(uuid())
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
-  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String
   message   String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  parentId  String?
   parent    Comment?  @relation("ParentChild", fields: [parentId], references: [id], onDelete: Cascade)
   children  Comment[] @relation("ParentChild")
-  parentId  String?
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   Likes     Like[]
 }
 
 model Notifications {
-  id        String @id @default(uuid())
+  id        String   @id @default(uuid())
   body      String
-  
-  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
-
   createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
