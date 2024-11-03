@@ -1,7 +1,7 @@
 import prisma from "@/db";
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
-export async function GET({ params }: { params: { userId: string } }) {
+export async function GET(req: NextRequest, { params }: { params: { userId: string } }) {
     try {
         const userId = params.userId;
 

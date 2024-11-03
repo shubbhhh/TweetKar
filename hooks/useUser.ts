@@ -1,28 +1,18 @@
+import fetcher from '@/lib/fetcher';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import useSWR from 'swr';
 
-export function useUser(userId: string) {
-    const [data, setData] = useState<User>();
-    const [error, setError] = useState<Error | null>();
-    const [isLoading, setLoading] = useState(true);
+interface UseUserProp {
+    username: string
+}
 
-    useEffect(() => {
-        if (!userId) return;
-
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                const response = await axios.get(`http://localhost:3000/api/user/${userId}`);
-                setData(response.data);
-            } catch (error: any) {
-                setError(error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [userId]);
+export function useUser(userId: string): {
+    data: User, 
+    error: Error, 
+    isLoading: Boolean
+} {
+    const { data, error, isLoading, mutate } = useSWR(`/api/user/${userId}`, fetcher)
 
     return { data, error, isLoading };
 }

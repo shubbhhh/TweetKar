@@ -1,12 +1,13 @@
-import serverAuth from "@/lib/serverAuth";
-import { NextApiRequest } from "next";
-import { NextResponse } from "next/server";
+import { AuthOption } from "@/lib/auth";
+import { getServerSession } from "next-auth";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
-    req: NextApiRequest,
+    req: NextRequest,
 ) {
     try {
-        const { currentUser } = await serverAuth(req);
+        const session = await getServerSession(AuthOption);
+        const currentUser = session?.user
     
         return NextResponse.json(currentUser)
     } catch(error) {

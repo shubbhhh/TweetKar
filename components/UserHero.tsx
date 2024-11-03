@@ -5,7 +5,7 @@ export default function UserHero({ user } : { user?: User }) {
         <div className="">
             <div className="bg-slate-200 h-44 relative">
                 <div className="absolute -bottom-16 left-4">
-                    <Avatar isLarge hasBorder name={user?.name || ""} email={user?.email || ""} />
+                    <Avatar isLarge hasBorder name={user?.name || ""} username={user?.username || ""} />
                 </div>
             </div>
         </div>

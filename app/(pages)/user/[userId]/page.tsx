@@ -17,7 +17,7 @@ export default function UserProfile({ params }: { params: { userId: string} }) {
 
     return (
         <div>
-            <Header showBackArrow label={`${fetchedUser?.name}`} />
+            <Header showBackArrow label={`${fetchedUser.username}`} />
             <UserHero user={fetchedUser}/>
             <UserBio user={fetchedUser} />
         </div>

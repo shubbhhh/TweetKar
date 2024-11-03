@@ -1,25 +1,27 @@
 "use client"
+
 import Header from "@/components/Header"
 import UserBio from "@/components/UserBio";
 import UserHero from "@/components/UserHero";
-import { useUser } from "@/hooks/useUser";
+import { useUsername } from "@/hooks/useUsername";
 import { Loader } from "lucide-react";
 
 export default function UserProfile({ params }: { params: { username: string} }) {
-    const { username } = params;
-
-    // const { data: fetchedUser, isLoading } = useUser(username);
+    const username = params.username;
     console.log(username)
 
-    // if(isLoading) {
-    //     return <Loader />
-    // }
+    const { data: fetchedUser, isLoading } = useUsername(username);
+    console.log(fetchedUser)
+
+    if(isLoading) {
+        return <Loader />
+    }
 
     return (
-        <div>
-            {/* <Header showBackArrow label={`${fetchedUser?.name}`} />
+        <>
+            <Header showBackArrow label={`${fetchedUser.username}`} />
             <UserHero user={fetchedUser}/>
-            <UserBio user={fetchedUser} /> */}
-        </div>
+            <UserBio user={fetchedUser} />
+        </>
     )
 }
