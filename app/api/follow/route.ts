@@ -41,7 +41,7 @@ export async function DELETE(req: NextRequest) {
         const currentUser = session?.user;
         
         if (!currentUser || !currentUser.id) {
-            return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
+            return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }
         
         const subToDelete = await prisma.subscriber.findFirst({
@@ -49,19 +49,19 @@ export async function DELETE(req: NextRequest) {
                 userId: userId,
                 subscriberId: currentUser.id
             }
-        })
+        });
         
         const sub = await prisma.subscriber.delete({
             where: {
                 id: subToDelete?.id
             }
-        })
+        });
 
-        console.log(sub)
-        return NextResponse.json({ sub })
+        console.log(sub);
+        return NextResponse.json({ deleted: sub });
 
     } catch(error) {
-        console.log("Subscribing: ", error)
-        return NextResponse.json({ error: "Error unfollowing"})
+        console.log("Subscribing: ", error);
+        return NextResponse.json({ error: "Error unfollowing"});
     }
 }

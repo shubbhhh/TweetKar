@@ -9,7 +9,7 @@
 } */
 
 
-.editor-root {
+/* .editor-root {
   background-color: rgb(255, 255, 255);
 }
 
@@ -29,9 +29,9 @@
 }
 
 .custom-quill .ql-editor.ql-blank::before {
-  color: rgb(170, 168, 168); /* Change this to your desired placeholder color */
-  opacity: 1; /* Ensures the placeholder text is visible */
-}
+  color: rgb(170, 168, 168);
+  opacity: 1; 
+} */
 
 @layer base {
   :root {

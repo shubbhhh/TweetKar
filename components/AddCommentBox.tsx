@@ -7,6 +7,7 @@ import axios from "axios";
 export default function AddCommentBox({ post }: { post: Post }) {
     const [comment, setComment] = useState("");
     const commentBox = useRef<HTMLTextAreaElement | null>(null)
+    console.log(comment)
     
     const handlePost = useCallback(async () => {
         // console.log("Post:", post)

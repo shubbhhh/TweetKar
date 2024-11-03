@@ -31,9 +31,9 @@ export default function LoginModal() {
         try {
             setIsLoading(true);
             
-            console.log(email, password);
+            console.log("Email:", email, "Password:", password);
             
-            const res = await signIn("credentials", {
+            const res = await signIn("signin", {
                 email,
                 password,
                 redirect: false

@@ -31,7 +31,7 @@ export default function InputTextArea() {
                 <Avatar username="testuser" name="test" showOnlyAvatar />
                 <AutogrowTextarea
                     className="w-full p-2 outline-none resize-none focus:outline-none"
-                    placeholder="What's happning..."
+                    placeholder="What's happning?!"
                     onChange={(e) => setContent(e.target.value)}
                 />
             </div>

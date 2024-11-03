@@ -2,7 +2,7 @@ import prisma from "@/db";
 import { NextRequest, NextResponse } from "next/server";
 
 
-export async function DELETE({ params }: { params: { commentId: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: { commentId: string } }) {
     try {
         const commentId = params.commentId;
 
