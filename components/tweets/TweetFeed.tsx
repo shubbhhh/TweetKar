@@ -2,6 +2,7 @@
 import { useTweets } from "@/hooks/useTweets"
 import { Loader2Icon } from "lucide-react";
 import TweetCard from "./TweetCard";
+import { PostWithIsLiked } from "@/hooks/useTweet";
 
 
 export default function TweetFeed() {
@@ -24,8 +25,8 @@ export default function TweetFeed() {
     
     return (
         <div className="">
-            {tweets.map((item: Post, index: number) => (
-                <TweetCard key={index} post={item} />
+            {tweets.map((post: PostWithIsLiked, index: number) => (
+                <TweetCard key={index} post={post} />
             ))}
         </div>
     )

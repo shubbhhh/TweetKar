@@ -1,9 +1,12 @@
 import fetcher from "@/lib/fetcher"
 import useSWR from "swr"
 
+export interface PostWithIsLiked extends Post {
+    isLiked: boolean
+}
 
 export function useTweet(postId: string): { 
-    data: Post, 
+    data: PostWithIsLiked, 
     error: Error, 
     isLoading: boolean,
 } {

@@ -1,13 +1,12 @@
 import { Bookmark, Heart, MessageCircle, SquareArrowOutUpRight } from "lucide-react";
 import Avatar from "../Avatar";
 import { useRouter } from "next/navigation";
-import AutogrowTextarea from "../AutoGrowTextarea";
-import { Button } from "../ui/button";
 import TweetActionButtons from "../TweetActionButtons";
 import AddCommentBox from "../AddCommentBox";
+import { PostWithIsLiked } from "@/hooks/useTweet";
 
 
-export default function TweetCard({ post }: { post: Post}) {
+export default function TweetCard({ post }: { post: PostWithIsLiked }) {
     const router = useRouter();
 
     console.log(post)

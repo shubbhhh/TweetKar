@@ -1,9 +1,12 @@
 import fetcher from "@/lib/fetcher"
 import useSWR, { KeyedMutator } from "swr"
 
+interface PostWithLikedState extends Post {
+    isLiked: boolean
+}
 
 export function useTweets(): { 
-    data: Post[], 
+    data: PostWithLikedState[], 
     error: Error, 
     isLoading: boolean, 
     mutate: KeyedMutator<any> 
