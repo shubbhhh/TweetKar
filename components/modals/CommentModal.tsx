@@ -1,13 +1,13 @@
 "use client"
 
-import useTweetModal from "@/hooks/useTweetModal";
+import useCommentModal from "@/hooks/useCommentModal";
 import InputTextArea from "../InputTextArea";
 import { X } from "lucide-react";
 import { useCallback } from "react";
 
 
-export default function TweetModal() {
-    const tweetModal = useTweetModal();
+export default function CommentModal() {
+    const commentModal = useCommentModal();
 
     const body = (
         <div className="flex p-2 gap-2 items-start bg-white rounded-lg">
@@ -17,11 +17,11 @@ export default function TweetModal() {
 
     return (
         <>
-        <PostTweet 
+        <PostComment 
             disabled={false}
-            isOpen={tweetModal.isOpen}
-            title="Tweet"
-            onClose={tweetModal.onClose}
+            isOpen={commentModal.isOpen}
+            title="Comment"
+            onClose={commentModal.onClose}
             onSubmit={() => {}} 
             body={body}
         />
@@ -38,7 +38,7 @@ interface ModalProps {
     disabled?: boolean,
 }
 
-function PostTweet({ isOpen, onClose, title, body, disabled, }: ModalProps) {
+function PostComment({ isOpen, onClose, title, body, disabled, }: ModalProps) {
     const handleClose = useCallback(() => {
         if (disabled) return;
 
